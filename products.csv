@@ -1,0 +1,65 @@
+product_id,product_name,category,unit_price
+1,Wireless Earbuds,Electronics,153.98
+2,Bluetooth Speaker,Electronics,176.26
+3,Phone Charger,Electronics,123.92
+4,Laptop Stand,Electronics,50.99
+5,USB-C Hub,Electronics,104.37
+6,Smartwatch,Electronics,85.23
+7,Webcam,Electronics,185.84
+8,Mechanical Keyboard,Electronics,161.16
+9,Air Fryer,Home & Kitchen,242.2
+10,Coffee Maker,Home & Kitchen,197.24
+11,Blender,Home & Kitchen,86.86
+12,Cutting Board Set,Home & Kitchen,75.83
+13,Knife Set,Home & Kitchen,198.18
+14,Toaster,Home & Kitchen,96.33
+15,Vacuum Cleaner,Home & Kitchen,233.56
+16,Storage Bins,Home & Kitchen,56.35
+17,Yoga Mat,Sports & Outdoors,249.34
+18,Water Bottle,Sports & Outdoors,51.54
+19,Resistance Bands,Sports & Outdoors,193.76
+20,Camping Tent,Sports & Outdoors,14.51
+21,Hiking Backpack,Sports & Outdoors,183.99
+22,Dumbbell Set,Sports & Outdoors,236.2
+23,Bike Helmet,Sports & Outdoors,58.73
+24,Running Shoes,Sports & Outdoors,201.04
+25,Mystery Novel,Books,209.17
+26,Cookbook,Books,24.74
+27,Self-Help Guide,Books,213.16
+28,Sci-Fi Novel,Books,200.4
+29,Business Book,Books,170.86
+30,Children's Book,Books,41.68
+31,History Book,Books,81.29
+32,Biography,Books,69.15
+33,Cotton T-Shirt,Clothing,45.3
+34,Denim Jeans,Clothing,110.4
+35,Winter Jacket,Clothing,99.23
+36,Running Shorts,Clothing,116.67
+37,Wool Sweater,Clothing,152.7
+38,Rain Jacket,Clothing,148.9
+39,Baseball Cap,Clothing,137.32
+40,Socks (3-pack),Clothing,231.49
+41,Face Moisturizer,Beauty,218.45
+42,Shampoo,Beauty,109.23
+43,Sunscreen SPF50,Beauty,16.9
+44,Lip Balm Set,Beauty,242.36
+45,Hair Dryer,Beauty,177.8
+46,Makeup Brush Set,Beauty,204.58
+47,Perfume,Beauty,151.7
+48,Face Mask Set,Beauty,229.29
+49,Building Blocks Set,Toys,34.47
+50,Puzzle 1000pc,Toys,68.07
+51,Remote Control Car,Toys,168.86
+52,Board Game,Toys,48.25
+53,Action Figure,Toys,156.27
+54,Plush Toy,Toys,144.3
+55,Art Supply Kit,Toys,164.1
+56,Toy Drone,Toys,164.51
+57,Notebook Pack,Office Supplies,241.97
+58,Desk Organizer,Office Supplies,88.25
+59,Stapler,Office Supplies,200.69
+60,Pen Set,Office Supplies,33.64
+61,Sticky Notes,Office Supplies,31.86
+62,Whiteboard,Office Supplies,61.72
+63,File Folders,Office Supplies,188.74
+64,Desk Lamp,Office Supplies,143.03
