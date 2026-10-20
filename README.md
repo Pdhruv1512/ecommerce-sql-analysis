@@ -1,79 +1,92 @@
 # E-Commerce Business Analysis (SQL)
 
-A SQL-driven analysis of an e-commerce dataset (customers, orders, products) answering
-common business questions: who our best customers are, which categories drive revenue,
-whether revenue is growing, and where returns are concentrated.
+A SQL analysis of an e-commerce dataset (customers, orders, products) that answers common business questions: who the best customers are, which categories drive revenue, whether revenue is growing, and where returns are concentrated.
+
+**Tools:** SQL (SQLite) · Python (data generation, running queries, charts)
 
 ## Why this project
-Entry-level analytics roles spend a lot of time turning raw transactional data into
-answers stakeholders can act on. This project simulates that workflow end-to-end:
-schema design → data generation → SQL analysis → business takeaways.
+Entry-level analytics roles spend much of their time turning raw transactional data into answers stakeholders can act on. This project covers that workflow end to end: schema design → data generation → SQL analysis → charts → business takeaways.
+
+---
 
 ## Dataset
-Synthetic but realistic e-commerce data generated with `generate_data.py` (seeded for
-reproducibility), loaded into a SQLite database (`ecommerce.db`). CSV exports of each
-table are also included for quick viewing on GitHub.
+Synthetic but realistic e-commerce data generated with `generate_data.py` (seeded for reproducibility) and loaded into a SQLite database, `ecommerce.db`. CSV exports of each table are included for quick viewing on GitHub. Orders run from **February 2023 to December 2024**.
 
-| Table | Rows | Description |
+| Table | Rows | Columns |
 |---|---|---|
-| `customers` | 800 | customer_id, name, region, signup_date |
-| `products` | 64 | product_id, name, category, unit_price |
+| `customers` | 800 | customer_id, first_name, last_name, region, signup_date |
+| `products` | 64 | product_id, product_name, category, unit_price |
 | `orders` | 1,682 | order_id, customer_id, order_date, payment_method, is_returned |
 | `order_items` | 4,183 | order_item_id, order_id, product_id, quantity |
 
-## Tools
-SQL (SQLite), Python (for data generation and running queries)
+---
 
 ## Business Questions & Key Findings
 
-**1. Top customers by revenue** — The top 10 customers each generated $5.6K–$7.9K in
-lifetime revenue, with order counts ranging from 4 to 10 — a small group of high-frequency
-buyers contributes disproportionately to revenue.
+All 8 queries are in [`queries.sql`](queries.sql), and their full outputs are saved in [`results/`](results).
 
-**2. Month-over-month revenue growth** — Revenue grew from ~$5.3K (Feb 2023) to ~$34K
-(Jan 2024), with the steepest single-month jump in June 2023 (+355%) as the customer
-base scaled. Growth was generally positive month over month after mid-2023.
+**1. Top customers by revenue:** the top 10 customers each generated $5.7K–$7.9K in lifetime revenue across 4–10 orders, more than 3x the average customer ($1,707). A small group of frequent buyers contributes disproportionately to revenue.
 
-**3. Revenue by category** — Home & Kitchen ($162.8K) and Sports & Outdoors ($161.6K)
-were the top-grossing categories, while Toys ($120K) lagged. Revenue was fairly evenly
-spread across all 8 categories (no single category dominates).
+**2. Month-over-month revenue growth:** revenue grew from $5.3K in February 2023 to $172.9K in December 2024. The largest single-month jump was June 2023 (+355%), and Q4 2024 (October–December) alone produced $426K, about 38% of all revenue.
 
-**4. Repeat purchase rate** — 66.4% of customers who placed an order placed more than
-one, indicating strong repeat engagement — a healthy sign for retention-focused strategy.
+![Monthly revenue](images/monthly_revenue.png)
 
-**5. Returns by payment method** — Debit card orders had the highest return rate (7.2%),
-compared to PayPal (3.2%), suggesting payment method may be worth investigating further
-as a return-risk factor.
+**3. Revenue by category:** Home & Kitchen ($162.8K) and Sports & Outdoors ($161.6K) lead, and Toys ($120.0K) is lowest. Revenue is spread fairly evenly across all 8 categories. Beauty ranks third in revenue despite selling the fewest units, because it has the highest average price per unit ($166).
 
-**6. Revenue by region** — The West region had the highest revenue per customer ($1,831),
-while the Midwest had both the fewest customers and the lowest revenue per customer
-($1,551) — a potential target for regional marketing investment.
+![Revenue by category](images/revenue_by_category.png)
 
-**7. Signup cohort analysis** — Customers who signed up in August 2023 generated the
-highest average revenue per customer ($1,879) among all monthly cohorts, useful for
-understanding which acquisition periods produced the most valuable customers.
+**4. Repeat purchase rate:** 439 of the 661 customers who ordered (66.4%) placed more than one order, which points to strong repeat engagement.
+
+**5. Returns by payment method:** debit card orders were returned most often (7.2%), more than double PayPal (3.2%). The overall return rate is 5.3% (89 of 1,682 orders). Return counts are small (29 debit card returns vs. 14 PayPal), so this is a pattern worth monitoring rather than a firm conclusion.
+
+![Return rate by payment method](images/return_rate_by_payment.png)
+
+**6. Revenue by region:** the Southwest brings in the most total revenue ($257.8K, 151 customers), but the West has the highest revenue per customer ($1,831). The Midwest has both the lowest total revenue ($195.4K) and the lowest revenue per customer ($1,551), making it a potential target for regional marketing.
+
+![Revenue per customer by region](images/revenue_per_customer_by_region.png)
+
+**7. Signup cohort analysis:** customers who signed up in August 2023 generated the highest average revenue per customer ($1,879). Later cohorts have had less time to make purchases, so their lower figures are partly expected.
+
+**8. Average order value and customer lifetime value:** the average order is worth $670.76, and customers place 2.54 orders on average, giving an average historical lifetime value of $1,706.83 per customer.
+
+---
+
+## SQL Techniques Used
+- Multi-table `JOIN`s across four related tables
+- Aggregations with `GROUP BY`, `COUNT(DISTINCT ...)`, `SUM`, and `ROUND`
+- Common table expressions (`WITH ... AS`)
+- Window functions (`LAG() OVER (ORDER BY ...)`) for month-over-month change
+- Conditional aggregation (`SUM(CASE WHEN ... THEN 1 ELSE 0 END)`)
+- `LEFT JOIN` to keep customers with no orders in the cohort analysis
+
+---
 
 ## Files
 ```
-├── generate_data.py     # builds the synthetic dataset into ecommerce.db
-├── ecommerce.db          # SQLite database (generated)
-├── queries.sql           # all 7 business-question queries, commented
-├── customers.csv         # table export
-├── products.csv          # table export
-├── orders.csv            # table export
-├── order_items.csv       # table export
+├── generate_data.py   # builds the synthetic dataset into ecommerce.db
+├── ecommerce.db       # SQLite database (generated)
+├── queries.sql        # all 8 business-question queries, commented
+├── run_analysis.py    # runs every query, saves results/ and images/
+├── results/           # CSV output of each query
+├── images/            # charts of key findings
+├── customers.csv      # table exports
+├── products.csv
+├── orders.csv
+├── order_items.csv
 └── README.md
 ```
 
 ## How to run it yourself
 ```bash
-python3 generate_data.py        # builds ecommerce.db
-sqlite3 ecommerce.db < queries.sql   # runs all queries
+python3 generate_data.py   # builds ecommerce.db (already included)
+pip install matplotlib
+python3 run_analysis.py    # runs all queries, writes results/ and images/
 ```
-Or open `ecommerce.db` in [DB Browser for SQLite](https://sqlitebrowser.org/) and run
-`queries.sql` interactively.
+Or run the queries directly with `sqlite3 ecommerce.db < queries.sql`, or open `ecommerce.db` in [DB Browser for SQLite](https://sqlitebrowser.org/).
 
-## Possible extensions
-- Connect to a BI tool (Tableau/Power BI) for a visual dashboard on top of these queries
-- Add a customer lifetime value (CLV) calculation
-- Migrate the schema to PostgreSQL/MySQL to practice a client-server database
+---
+
+## Related Projects
+This dataset is the foundation for two follow-up projects:
+- **[PostgreSQL Database Design & Administration](https://github.com/Pdhruv1512/ecommerce-postgres-dba):** the same data migrated to PostgreSQL with constraints, indexing (27x faster lookups), role-based access, and verified backups
+- **[E-Commerce Sales Dashboard](https://github.com/Pdhruv1512/ecommerce-sales-dashboard):** an interactive Tableau dashboard built on this data ([live version](https://public.tableau.com/app/profile/pdhruv15/viz/E-CommerceSalesDashboard_17924822464680/SalesDashboard))

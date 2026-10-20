@@ -1,0 +1,5 @@
+payment_method,total_orders,returned_orders,return_rate_pct
+Debit Card,402,29,7.2
+Credit Card,389,25,6.4
+Gift Card,452,21,4.6
+PayPal,439,14,3.2
