@@ -4,10 +4,7 @@ A SQL analysis of an e-commerce dataset (customers, orders, products) that answe
 
 **Tools:** SQL (SQLite) · Python (data generation, running queries, charts)
 
-## Why this project
-Entry-level analytics roles spend much of their time turning raw transactional data into answers stakeholders can act on. This project covers that workflow end to end: schema design → data generation → SQL analysis → charts → business takeaways.
 
----
 
 ## Dataset
 Synthetic but realistic e-commerce data generated with `generate_data.py` (seeded for reproducibility) and loaded into a SQLite database, `ecommerce.db`. CSV exports of each table are included for quick viewing on GitHub. Orders run from **February 2023 to December 2024**.
@@ -19,9 +16,8 @@ Synthetic but realistic e-commerce data generated with `generate_data.py` (seede
 | `orders` | 1,682 | order_id, customer_id, order_date, payment_method, is_returned |
 | `order_items` | 4,183 | order_item_id, order_id, product_id, quantity |
 
----
 
-## Business Questions & Key Findings
+## Questions and Findings
 
 All 8 queries are in [`queries.sql`](queries.sql), and their full outputs are saved in [`results/`](results).
 
@@ -49,7 +45,6 @@ All 8 queries are in [`queries.sql`](queries.sql), and their full outputs are sa
 
 **8. Average order value and customer lifetime value:** the average order is worth $670.76, and customers place 2.54 orders on average, giving an average historical lifetime value of $1,706.83 per customer.
 
----
 
 ## SQL Techniques Used
 - Multi-table `JOIN`s across four related tables
@@ -59,7 +54,6 @@ All 8 queries are in [`queries.sql`](queries.sql), and their full outputs are sa
 - Conditional aggregation (`SUM(CASE WHEN ... THEN 1 ELSE 0 END)`)
 - `LEFT JOIN` to keep customers with no orders in the cohort analysis
 
----
 
 ## Files
 ```
@@ -84,7 +78,6 @@ python3 run_analysis.py    # runs all queries, writes results/ and images/
 ```
 Or run the queries directly with `sqlite3 ecommerce.db < queries.sql`, or open `ecommerce.db` in [DB Browser for SQLite](https://sqlitebrowser.org/).
 
----
 
 ## Related Projects
 This dataset is the foundation for two follow-up projects:
