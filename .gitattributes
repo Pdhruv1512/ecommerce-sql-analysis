@@ -1,0 +1,3 @@
+
+# Show SQL in the GitHub language bar
+*.sql linguist-detectable=true
